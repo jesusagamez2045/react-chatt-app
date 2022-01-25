@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+// @packages
+import { useState } from 'react';
 
-function App() {
+// @styles
+import './App.css';
+import Chatt from './components/chatt';
+import LoginForm from './components/login-form';
+
+const App = () => {
+  const [name, setName] = useState("");
+  const [registered, setRegistered] = useState(false);
+
+  const handleSubmit = (userName) => {
+    setName(userName);
+    setRegistered(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {
+        !registered ? (
+          <div className="App">
+            <LoginForm onSubmit={handleSubmit}/>
+          </div>
+        ) : (
+          <div>
+            <Chatt name={name} />
+          </div>
+        )
+      }
+    </>
   );
 }
 
