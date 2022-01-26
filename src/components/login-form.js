@@ -16,12 +16,18 @@ const LoginForm = ({ onSubmit }) => {
 
     onSubmit(name);
   }
+
+  const isDisabled = name.trim().length === 0;
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="">Introduzca su nombre de usuario</label>
-      <input value={name} onChange={handleChangeName} />
-      <button>Ir al chat</button>
-    </form>
+    <div className="white-box">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>Bienvenido</h2>
+        <label htmlFor="">Introduzca su nombre de usuario</label>
+        <input value={name} placeholder="Nickname" onChange={handleChangeName} />
+        <button className="btn-primary" disabled={isDisabled}>Ir al chat</button>
+      </form>
+    </div>
   );
 };
 

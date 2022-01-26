@@ -16,13 +16,20 @@ const Chatt = ({ name }) => {
 
   useEffect(() => {
     socket.on('messages', msg => {
-      setMessages([...messages, msg])
+      const date = new Date();
+      const formatedDate = date.toLocaleString();
+      const newMessage = {
+        ...msg,
+        from: msg.name === name,
+        date: formatedDate
+      }
+      setMessages([...messages, newMessage])
     });
 
     return () => {
       socket.off();
     }
-  }, [messages]);
+  }, [messages, name]);
 
   const handleChangeMessage = (event) => {
     const { value } = event.target;
@@ -41,12 +48,11 @@ const Chatt = ({ name }) => {
 
   return (
     <>
-      <div>
+      <div className="wrapper-chatt">
         <ListMessages messages={messages}/>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="">Escriba su mensaje</label>
-          <textarea cols="30" rows="10" value={message} onChange={handleChangeMessage} />
-          <button disabled={isDisabled}>Enviar</button>
+        <form onSubmit={handleSubmit} className="chatt-form">
+          <textarea placeholder="Escribe tu mensaje" cols="30" rows="2" value={message} onChange={handleChangeMessage} />
+          <button disabled={isDisabled} className="btn-primary">Enviar</button>
         </form>
       </div>
     </>

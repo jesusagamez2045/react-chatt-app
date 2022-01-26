@@ -19,11 +19,11 @@ const App = () => {
     <>
       {
         !registered ? (
-          <div className="App">
+          <div className="container-login">
             <LoginForm onSubmit={handleSubmit}/>
           </div>
         ) : (
-          <div>
+          <div className="container-chatt">
             <Chatt name={name} />
           </div>
         )
